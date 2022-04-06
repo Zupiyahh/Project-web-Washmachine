@@ -14,8 +14,7 @@ import {
     UpdateResult,
   } from 'typeorm';
   import { hashSync } from 'bcrypt';
-  import { CreateUserDto } from './dto/created-user.dto';
-import { UpadateUserDto } from './dto/updated-user.dto';
+  import { UpadateUserDto } from './dto/updated-user.dto';
   
   @Injectable()
   export class UserService extends CrudService<UserEntity> {
@@ -46,7 +45,7 @@ import { UpadateUserDto } from './dto/updated-user.dto';
         },
       });
     }
-  
+
     async findOneByUUID(uuid: string) {
       return await this.repository.findOne({
         where: {
@@ -54,7 +53,7 @@ import { UpadateUserDto } from './dto/updated-user.dto';
         },
       });
     }
-    
+
     async findAll(options?: FindManyOptions<UserEntity>): Promise<UserEntity[]> {
       const entities = await this.repository.find(options);
       return entities;
@@ -63,13 +62,6 @@ import { UpadateUserDto } from './dto/updated-user.dto';
     async updateUserData(id: number, userData: UpadateUserDto): Promise<UpdateResult> {   
       return await this.repository.update(id, userData);
     }
-  
-    async  DeleteUser(uuid: string): Promise<DeleteResult> {
-      return await this.repository.delete({ uuid: uuid });
-    }
-  
-  
-  
-  
+
   }
   

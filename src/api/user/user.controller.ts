@@ -119,15 +119,18 @@ export class UserController {
     return { success: true };
   }
 
-  @Delete(':uuid')
-  @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
-  @ApiOkResponse({
-    description: 'The response list has been successfully removed.',
-  })
-  @ApiForbiddenResponse({ description: 'Forbidden.' })
-  async deleteUser(@Param('uuid', ParseUUIDPipe) uuid: string) {
-    await this.userService.DeleteUser(uuid);
-    return { success: true };
-  }
+  // @Delete(':id')
+  // @ApiBearerAuth()
+  // @UseGuards(JwtAuthGuard)
+  // @ApiOkResponse({
+  //   description: 'The response list has been successfully removed.',
+  // })
+  // @ApiForbiddenResponse({ description: 'Forbidden.' })
+  // async deleteUser(@Param('id') id: number) {
+  //   if (!(await this.userService.findUserById(id)))  
+  //     throw new NotFoundException('Not Found Data');
+  //   await this.userService.DeleteUser(id);
+  //   return { success: true };
+  // }
+
 }

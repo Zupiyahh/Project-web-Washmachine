@@ -31,9 +31,9 @@ export class WashMachineEntity extends ExtendedEntity {
     @Expose({ groups: [Group_WashMachine_List, Group_WashMachine_View] })
     Price: string;
 
-    @OneToMany(() => WashModeEntity, WashMode => WashMode.Wash)
+    @OneToMany(() => WashModeEntity, WashModes => WashModes.Wash)
     WashModes: WashModeEntity[];
-
+    
     @Column({ type: 'varchar', length: 50, nullable: false })
     role: string;
 

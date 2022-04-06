@@ -8,7 +8,6 @@ import {
   NotFoundException,
   Param,
   ParseIntPipe,
-  ParseUUIDPipe,
   Patch,
   Post,
   Query,
@@ -80,9 +79,7 @@ export class WashmachineController {
     description: 'The response list has been successfully returned.',
   })
   @ApiForbiddenResponse({ description: 'Forbidden.' })
-  async listWashMachine(
-    @Query() query: PaginationQueryString,
-  ) {
+  async listWashMachine(@Query() query: PaginationQueryString) {
     const { page, limit } = query;
     const [washmachines, total] = await this.washmachineService.findAndCount({
       take: limit,
@@ -108,7 +105,10 @@ export class WashmachineController {
     description: 'The response list has been successfully updated.',
   })
   @ApiForbiddenResponse({ description: 'Forbidden.' })
-  async updateWashMachineData(@Param('id') id: string, @Body() washMachineData: UpadateWashMachineDto) {
+  async updateWashMachineData(
+    @Param('id') id: string,
+    @Body() washMachineData: UpadateWashMachineDto,
+  ) {
     await this.washmachineService.updateWashMachineData(+id, washMachineData);
     return { success: true };
   }
@@ -119,9 +119,11 @@ export class WashmachineController {
     description: 'The response has been successfully removed.',
   })
   @ApiForbiddenResponse({ description: 'Forbidden.' })
-  async DeleteWashMachine(@Param('id', ParseUUIDPipe) id: number) {
-    await this.washmachineService.DeleteWashMachine(id);
-    return { success: true };
+  async DeleteWashMachine(@Param('id') id: number) {
+    if (!(await this.washmachineService.findOneWashMachine(id)))
+    throw new NotFoundException('Not Found WashMachine');
+    const washmachine = await this.washmachineService.delete(id);
+    return washmachine;
   }
 
   @Get('washID/:id')
@@ -129,16 +131,14 @@ export class WashmachineController {
     description: 'The washmachine By ID data has been successfully returned.',
   })
   @ApiForbiddenResponse({ description: 'Forbidden.' })
-  async getWashMachineByID(
-    @Param('id', ParseIntPipe) id: number,
-  ) {
+  async getWashMachineByID(@Param('id', ParseIntPipe) id: number) {
     const washmachine = await this.washmachineService.findOne({
       where: {
         id: id,
       },
     });
     if (!washmachine) {
-      throw new NotFoundException("Not Found WashMachine");
+      throw new NotFoundException('Not Found WashMachine');
     }
     return washmachine;
   }
@@ -148,12 +148,9 @@ export class WashmachineController {
     description: 'The washmode data has been successfully returned.',
   })
   @ApiForbiddenResponse({ description: 'Forbidden.' })
-  @Roles(ROLE_ENUM.Owner)
   async getWashMode(@JwtPayloadData() jwtData: JwtPayloadInterface) {
     const obj = this.washmachineService.readJsonFile();
     const jsonobj = obj[jwtData.role];
     return jsonobj;
   }
-
-  
 }

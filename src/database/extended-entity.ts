@@ -2,6 +2,7 @@ import { Exclude } from 'class-transformer';
 import {
   BaseEntity,
   BeforeUpdate,
+  Column,
   CreateDateColumn,
   DeleteDateColumn,
   PrimaryGeneratedColumn,

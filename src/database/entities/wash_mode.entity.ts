@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
 import { DATABASE_TABLE } from '../enum/database-table.enum';
 import { ExtendedEntity } from '../extended-entity';
 import { WashMachineEntity } from './wash_machine.entity';
@@ -17,6 +17,5 @@ export class WashModeEntity extends ExtendedEntity {
 
   @Column({ type: 'int' })
   Index: number;
-
 
 }
