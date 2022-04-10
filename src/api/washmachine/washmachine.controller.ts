@@ -37,17 +37,13 @@ import { PaginationResponseInterface } from '../../shared/interface/pagination-r
 import { classToPlain } from 'class-transformer';
 import { Group_WashMachine_List } from '../../database/entities/wash_machine.entity';
 import { UpadateWashMachineDto } from './dto/updated-washmachine.dto';
-import { Repository } from 'typeorm';
-import { HardwareEntity } from 'src/database/entities/hardware.entity';
 
 @Controller('washmachine')
 @UseGuards(JwtAuthGuard, RolesGuard)
 @ApiBearerAuth()
 @ApiTags('WashMachine')
 export class WashmachineController {
-  constructor(
-    private readonly washmachineService: WashmachineService,
-  ) {}
+  constructor(private readonly washmachineService: WashmachineService) {}
 
   @Post()
   @Roles(ROLE_ENUM.Owner)
@@ -66,15 +62,16 @@ export class WashmachineController {
       role: jwtData.role,
     });
     const washmachines = await this.washmachineService.CreateWashMachine({
-      Machine_Model: createWashMachine.Machine_Model,
-      locationName: createWashMachine.locationName,
-      locationID: createWashMachine.locationID,
+      Machine_Model: createWashMachine.Machine_Model,   
       WashID: createWashMachine.WashID,
       Price: createWashMachine.Price,
+      locationName: createWashMachine.locationName,
+      locationID: createWashMachine.locationID,
       WashModes: washmodes,
       role: jwtData.role,
       uuid: jwtData.uuid,
     });
+
     return washmachines;
   }
 
@@ -157,5 +154,4 @@ export class WashmachineController {
     const jsonobj = obj[jwtData.role];
     return jsonobj;
   }
-
 }

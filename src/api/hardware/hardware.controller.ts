@@ -1,5 +1,5 @@
 import { Controller, Get, Query } from '@nestjs/common';
-import { ApiOkResponse, ApiForbiddenResponse } from '@nestjs/swagger';
+import { ApiOkResponse, ApiForbiddenResponse, ApiTags } from '@nestjs/swagger';
 import { classToPlain } from 'class-transformer';
 import { Group_Hardware_List } from 'src/database/entities/hardware.entity';
 import { Group_WashMachine_List } from 'src/database/entities/wash_machine.entity';
@@ -9,6 +9,7 @@ import { PaginationResponseInterface } from 'src/shared/interface/pagination-res
 import { HardwareService } from './hardware.service';
 
 @Controller('hardware')
+@ApiTags('hardware')
 export class HardwareController {
     constructor(private readonly hardwareService: HardwareService) {}
     

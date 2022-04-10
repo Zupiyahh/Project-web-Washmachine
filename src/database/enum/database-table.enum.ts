@@ -3,5 +3,6 @@ export enum DATABASE_TABLE {
     WashMode = 'wash_mode',
     WashMachine = 'wash_machine',
     Payment = 'payment',
-    Hardware = 'hardware'
+    Hardware = 'hardware',
+    LocationWashachine = 'location_washmachine'
 }

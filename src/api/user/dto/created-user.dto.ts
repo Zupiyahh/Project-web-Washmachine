@@ -57,6 +57,5 @@ export class CreateUserDto {
   paymentName: string;
 
   money: string;
-  dueDate: string;
   total: number;
 }

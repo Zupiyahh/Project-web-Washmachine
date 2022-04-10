@@ -99,13 +99,5 @@ export class UserService extends CrudService<UserEntity> {
   //   return await this.repository.update(id, payment);
   // }
 
-  async payment(id: number) { 
-    console.log(id);
-    await this.repository.findOne({
-      where: {
-        id:id
-      },
-      
-    });
-  }
+  
 }

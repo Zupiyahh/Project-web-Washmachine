@@ -11,14 +11,8 @@ import { CrudService } from '../../base/crud.service';
 import { UserEntity } from '../../database/entities/user.entity';
 import { WashMachineEntity } from '../../database/entities/wash_machine.entity';
 import { WashModeEntity } from '../../database/entities/wash_mode.entity';
-import {
-  Connection,
-  IsNull,
-  Repository,
-  UpdateResult,
-} from 'typeorm';
+import { Connection, IsNull, Repository, UpdateResult } from 'typeorm';
 import { UpadateWashMachineDto } from './dto/updated-washmachine.dto';
-import { HardwareEntity } from 'src/database/entities/hardware.entity';
 
 @Injectable()
 export class WashmachineService extends CrudService<WashMachineEntity> {
@@ -29,7 +23,7 @@ export class WashmachineService extends CrudService<WashMachineEntity> {
     @InjectRepository(WashModeEntity)
     private readonly WashModeRepository: Repository<WashModeEntity>,
     @InjectRepository(UserEntity)
-    private readonly  userRepository: Repository<UserEntity>,
+    private readonly userRepository: Repository<UserEntity>,
   ) {
     super();
   }
@@ -121,6 +115,7 @@ export class WashmachineService extends CrudService<WashMachineEntity> {
         throw new NotFoundException();
       }
       const user = _user.id;
+      
       await queryRunner.manager
         .create(WashMachineEntity, {
           Machine_Model,
@@ -141,6 +136,37 @@ export class WashmachineService extends CrudService<WashMachineEntity> {
       throw new InternalServerErrorException('CreateWasMachine Error');
     }
   }
+  
+  // async CreateLocationWash({
+  //   locationName,
+  //   locationID,
+  //   WashMachines,
+  // }: {
+  //   locationName: string;
+  //   locationID: string;
+  //   WashMachines: any;
+  // }) {
+  //   const queryRunner = this.connection.createQueryRunner();
+  //   await queryRunner.connect();
+  //   await queryRunner.startTransaction();
+  //   try {
+  //     await queryRunner.manager
+  //       .create(LocationWashmachineEntity, {
+  //         locationName,
+  //         locationID,
+  //         WashMachines,
+  //       })
+  //       .save();
+  //     await queryRunner.commitTransaction();
+  //     await queryRunner.release();
+  //   } catch (error) {
+  //     await queryRunner.rollbackTransaction();
+  //     await queryRunner.release();
+  //     throw new InternalServerErrorException(
+  //       'Create LocationWashmachine Error',
+  //     );
+  //   }
+  // }
 
   async updateWashMachineData(
     id: number,

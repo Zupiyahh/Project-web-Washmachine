@@ -11,6 +11,7 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  Put,
   Query,
   Req,
   SerializeOptions,
@@ -41,11 +42,14 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from '../../auth/guard/jwt-guard';
 import { UpadateUserDto } from './dto/updated-user.dto';
 import { UpdatePaymentDto } from './dto/updated-payment.dto.dto';
+import { Connection } from 'typeorm';
 
 @Controller('user')
 @ApiTags('User')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private connection: Connection,
+    private readonly userService: UserService) {}
 
   @Post()
   @UseInterceptors(FileInterceptor(''))
@@ -107,7 +111,7 @@ export class UserController {
     return user;
   }
 
-  @Patch(':id')
+  @Put(':id')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @ApiConsumes('multipart/form-data')
@@ -121,7 +125,7 @@ export class UserController {
     return { success: true };
   }
 
-  @Patch('addpayment/:id')
+  @Put('addpayment/:id')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @ApiConsumes('multipart/form-data')
@@ -133,28 +137,5 @@ export class UserController {
   async addPaymentData(@Param('id') id: string, @Body() addPayment: UpdatePaymentDto) {
     await this.userService.addPayment(+id, addPayment);
     return { success: true };
-  }
-
-  // @Patch('payment/:id')
-  // @ApiBearerAuth()
-  // @UseGuards(JwtAuthGuard)
-  // @ApiConsumes('multipart/form-data')
-  // @UseInterceptors(FileInterceptor(''))
-  // @ApiOkResponse({
-  //   description: 'The response list has been successfully updated.',
-  // })
-  // @ApiForbiddenResponse({ description: 'Forbidden.' })
-  // async paymentData(@Param('id') id: string, @Body() payment: UpdatePaymentDto) {
-  //   await this.userService.payment(+id);
-  //   return { success: true };
-  // }
-
-  @Post(':payment/submit')
-  async submitPay(
-    @Param('id') id: number,
-  ) {
-    await this.userService.payment(id);
-    console.log(id);
-    
   }
 }
