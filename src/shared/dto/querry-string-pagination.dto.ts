@@ -31,7 +31,7 @@ export class PaginationQueryString {
     @Transform(({ value }) => {
         return Number(value);
     })
-    limit?: number = 10;
+    limit?: number = 50;
 
     @ApiProperty({ enum: [OrderBy.DESC, OrderBy.ASC], required: false })
     @IsString()

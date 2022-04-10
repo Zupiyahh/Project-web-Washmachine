@@ -21,6 +21,7 @@ import { classToPlain } from 'class-transformer';
 import {
   Group_User_List,
   Group_User_View,
+  UserEntity,
 } from '../../database/entities/user.entity';
 import { getOffset } from '../../shared/helper/utils';
 import { PaginationResponseInterface } from '../../shared/interface/pagination-response';
@@ -39,6 +40,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from '../../auth/guard/jwt-guard';
 import { UpadateUserDto } from './dto/updated-user.dto';
+import { UpdatePaymentDto } from './dto/updated-payment.dto.dto';
 
 @Controller('user')
 @ApiTags('User')
@@ -119,18 +121,40 @@ export class UserController {
     return { success: true };
   }
 
-  // @Delete(':id')
+  @Patch('addpayment/:id')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @ApiConsumes('multipart/form-data')
+  @UseInterceptors(FileInterceptor(''))
+  @ApiOkResponse({
+    description: 'The response list has been successfully updated.',
+  })
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
+  async addPaymentData(@Param('id') id: string, @Body() addPayment: UpdatePaymentDto) {
+    await this.userService.addPayment(+id, addPayment);
+    return { success: true };
+  }
+
+  // @Patch('payment/:id')
   // @ApiBearerAuth()
   // @UseGuards(JwtAuthGuard)
+  // @ApiConsumes('multipart/form-data')
+  // @UseInterceptors(FileInterceptor(''))
   // @ApiOkResponse({
-  //   description: 'The response list has been successfully removed.',
+  //   description: 'The response list has been successfully updated.',
   // })
   // @ApiForbiddenResponse({ description: 'Forbidden.' })
-  // async deleteUser(@Param('id') id: number) {
-  //   if (!(await this.userService.findUserById(id)))  
-  //     throw new NotFoundException('Not Found Data');
-  //   await this.userService.DeleteUser(id);
+  // async paymentData(@Param('id') id: string, @Body() payment: UpdatePaymentDto) {
+  //   await this.userService.payment(+id);
   //   return { success: true };
   // }
 
+  @Post(':payment/submit')
+  async submitPay(
+    @Param('id') id: number,
+  ) {
+    await this.userService.payment(id);
+    console.log(id);
+    
+  }
 }

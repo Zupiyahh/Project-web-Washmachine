@@ -37,13 +37,17 @@ import { PaginationResponseInterface } from '../../shared/interface/pagination-r
 import { classToPlain } from 'class-transformer';
 import { Group_WashMachine_List } from '../../database/entities/wash_machine.entity';
 import { UpadateWashMachineDto } from './dto/updated-washmachine.dto';
+import { Repository } from 'typeorm';
+import { HardwareEntity } from 'src/database/entities/hardware.entity';
 
 @Controller('washmachine')
 @UseGuards(JwtAuthGuard, RolesGuard)
 @ApiBearerAuth()
 @ApiTags('WashMachine')
 export class WashmachineController {
-  constructor(private readonly washmachineService: WashmachineService) {}
+  constructor(
+    private readonly washmachineService: WashmachineService,
+  ) {}
 
   @Post()
   @Roles(ROLE_ENUM.Owner)
@@ -121,7 +125,7 @@ export class WashmachineController {
   @ApiForbiddenResponse({ description: 'Forbidden.' })
   async DeleteWashMachine(@Param('id') id: number) {
     if (!(await this.washmachineService.findOneWashMachine(id)))
-    throw new NotFoundException('Not Found WashMachine');
+      throw new NotFoundException('Not Found WashMachine');
     const washmachine = await this.washmachineService.delete(id);
     return washmachine;
   }
@@ -153,4 +157,5 @@ export class WashmachineController {
     const jsonobj = obj[jwtData.role];
     return jsonobj;
   }
+
 }

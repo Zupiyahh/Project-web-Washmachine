@@ -23,7 +23,7 @@ export class WashMachineEntity extends ExtendedEntity {
     @Expose({ groups: [Group_WashMachine_List, Group_WashMachine_View] })
     locationID: string;
 
-    @Column({ type: 'varchar', length: 100, nullable: false  })
+    @Column({ unique: true, type: 'varchar', length: 100, nullable: false  })
     @Expose({ groups: [Group_WashMachine_List, Group_WashMachine_View] })
     WashID: string;
 

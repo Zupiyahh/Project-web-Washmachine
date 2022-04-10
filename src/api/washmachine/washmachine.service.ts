@@ -13,13 +13,12 @@ import { WashMachineEntity } from '../../database/entities/wash_machine.entity';
 import { WashModeEntity } from '../../database/entities/wash_mode.entity';
 import {
   Connection,
-  DeepPartial,
-  DeleteResult,
   IsNull,
   Repository,
   UpdateResult,
 } from 'typeorm';
 import { UpadateWashMachineDto } from './dto/updated-washmachine.dto';
+import { HardwareEntity } from 'src/database/entities/hardware.entity';
 
 @Injectable()
 export class WashmachineService extends CrudService<WashMachineEntity> {
@@ -28,9 +27,9 @@ export class WashmachineService extends CrudService<WashMachineEntity> {
     @InjectRepository(WashMachineEntity)
     protected repository: Repository<WashMachineEntity>,
     @InjectRepository(WashModeEntity)
-    protected WashModeRepository: Repository<WashModeEntity>,
+    private readonly WashModeRepository: Repository<WashModeEntity>,
     @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>,
+    private readonly  userRepository: Repository<UserEntity>,
   ) {
     super();
   }
@@ -122,7 +121,7 @@ export class WashmachineService extends CrudService<WashMachineEntity> {
         throw new NotFoundException();
       }
       const user = _user.id;
-      const washMachineEntity = await queryRunner.manager
+      await queryRunner.manager
         .create(WashMachineEntity, {
           Machine_Model,
           locationName,

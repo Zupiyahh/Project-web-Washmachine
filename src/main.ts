@@ -40,7 +40,7 @@ async function bootstrap() {
   if (enableSwagger === true) {
     SwaggerModule.setup('api/document', app, document);
   }
-  await app.listen(3000);
+  await app.listen(8000);
   console.log(`\nApplication is running!!!\n`);
 }
 bootstrap();
