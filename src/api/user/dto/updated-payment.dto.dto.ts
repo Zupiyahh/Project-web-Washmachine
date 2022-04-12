@@ -3,10 +3,12 @@ import { IsString } from 'class-validator';
 export class UpdatePaymentDto {
 
   @ApiProperty({
-    example: '300'
+    example: '30'
   })
   @IsString()
   money: string;
 
   total: number;
+
+  ModeName: string;
 }

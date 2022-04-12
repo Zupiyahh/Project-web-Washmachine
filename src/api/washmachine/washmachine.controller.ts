@@ -73,6 +73,18 @@ export class WashmachineController {
     });
 
     return washmachines;
+  } 
+  @Get('washmode')
+  @ApiOkResponse({
+    description: 'The washmode data has been successfully returned.',
+  })
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
+  async getWashMode(@JwtPayloadData() jwtData: JwtPayloadInterface) {
+    const obj = this.washmachineService.readJsonFile();
+    const jsonobj = obj[jwtData.role];
+    console.log(jsonobj);
+    
+    return obj;
   }
 
   @Get()
@@ -134,6 +146,7 @@ export class WashmachineController {
   @ApiForbiddenResponse({ description: 'Forbidden.' })
   async getWashMachineByID(@Param('id', ParseIntPipe) id: number) {
     const washmachine = await this.washmachineService.findOne({
+      relations: ['WashModes'],
       where: {
         id: id,
       },
@@ -144,14 +157,5 @@ export class WashmachineController {
     return washmachine;
   }
 
-  @Get('washmode')
-  @ApiOkResponse({
-    description: 'The washmode data has been successfully returned.',
-  })
-  @ApiForbiddenResponse({ description: 'Forbidden.' })
-  async getWashMode(@JwtPayloadData() jwtData: JwtPayloadInterface) {
-    const obj = this.washmachineService.readJsonFile();
-    const jsonobj = obj[jwtData.role];
-    return jsonobj;
-  }
+ 
 }

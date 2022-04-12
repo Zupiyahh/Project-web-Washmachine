@@ -137,36 +137,6 @@ export class WashmachineService extends CrudService<WashMachineEntity> {
     }
   }
   
-  // async CreateLocationWash({
-  //   locationName,
-  //   locationID,
-  //   WashMachines,
-  // }: {
-  //   locationName: string;
-  //   locationID: string;
-  //   WashMachines: any;
-  // }) {
-  //   const queryRunner = this.connection.createQueryRunner();
-  //   await queryRunner.connect();
-  //   await queryRunner.startTransaction();
-  //   try {
-  //     await queryRunner.manager
-  //       .create(LocationWashmachineEntity, {
-  //         locationName,
-  //         locationID,
-  //         WashMachines,
-  //       })
-  //       .save();
-  //     await queryRunner.commitTransaction();
-  //     await queryRunner.release();
-  //   } catch (error) {
-  //     await queryRunner.rollbackTransaction();
-  //     await queryRunner.release();
-  //     throw new InternalServerErrorException(
-  //       'Create LocationWashmachine Error',
-  //     );
-  //   }
-  // }
 
   async updateWashMachineData(
     id: number,

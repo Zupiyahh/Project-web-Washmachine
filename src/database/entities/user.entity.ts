@@ -55,4 +55,10 @@ export class UserEntity extends ExtendedEntity {
     groups: [ Group_User_List ],
   })
   paymentName: string;
+
+  @Column({ nullable: true })
+  @Expose({
+    groups: [ Group_User_List ],
+  })
+  ModeName: string;
 }

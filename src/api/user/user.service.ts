@@ -88,16 +88,4 @@ export class UserService extends CrudService<UserEntity> {
 
     return await this.repository.update(id, addPayment);
   }
-
-  // async payment(
-  //   id: number,
-  //   payment: DeepPartial<UpdatePaymentDto>,
-  // ): Promise<UpdateResult> {
-  //   // if (payment.money) {
-  //     payment.total === PayEnum.Pay;
-  //   // }
-  //   return await this.repository.update(id, payment);
-  // }
-
-  
 }
