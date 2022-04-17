@@ -2,7 +2,6 @@ import { Expose } from 'class-transformer';
 import { Column, Entity, Generated, ManyToOne } from 'typeorm';
 import { DATABASE_TABLE } from '../enum/database-table.enum';
 import { ExtendedEntity } from '../extended-entity';
-import { Group_Payment_List } from './payment.entity';
 
 export const Group_User_List = 'group_user_list';
 export const Group_User_View = 'group_user_view';
@@ -55,10 +54,4 @@ export class UserEntity extends ExtendedEntity {
     groups: [ Group_User_List ],
   })
   paymentName: string;
-
-  @Column({ nullable: true })
-  @Expose({
-    groups: [ Group_User_List ],
-  })
-  ModeName: string;
 }

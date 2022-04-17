@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CrudService } from 'src/base/crud.service';
-import { HardwareEntity } from 'src/database/entities/hardware.entity';
+import { CrudService } from '../../base/crud.service';
+import { HardwareEntity } from '../../database/entities/hardware.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()

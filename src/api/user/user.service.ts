@@ -80,7 +80,7 @@ export class UserService extends CrudService<UserEntity> {
     addPayment: DeepPartial<UpdatePaymentDto>,
   ): Promise<UpdateResult> {
     if (addPayment.money !== '30') {
-      throw new BadRequestException('สามารถเติม 30บาทเท่านั้น!!!');
+      throw new BadRequestException();
     }
     if (addPayment.money) {
       addPayment.total = parseInt(addPayment.money);

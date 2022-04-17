@@ -1,11 +1,10 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { ApiOkResponse, ApiForbiddenResponse, ApiTags } from '@nestjs/swagger';
 import { classToPlain } from 'class-transformer';
-import { Group_Hardware_List } from 'src/database/entities/hardware.entity';
-import { Group_WashMachine_List } from 'src/database/entities/wash_machine.entity';
-import { PaginationQueryString } from 'src/shared/dto/querry-string-pagination.dto';
-import { getOffset } from 'src/shared/helper/utils';
-import { PaginationResponseInterface } from 'src/shared/interface/pagination-response';
+import { Group_Hardware_List } from '../../database/entities/hardware.entity';
+import { PaginationQueryString } from '../../shared/dto/querry-string-pagination.dto';
+import { getOffset } from '../../shared/helper/utils';
+import { PaginationResponseInterface } from '../../shared/interface/pagination-response';
 import { HardwareService } from './hardware.service';
 
 @Controller('hardware')

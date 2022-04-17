@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { HardwareEntity } from 'src/database/entities/hardware.entity';
+import { HardwareEntity } from '../../database/entities/hardware.entity';
 import { HardwareController } from './hardware.controller';
 import { HardwareService } from './hardware.service';
 
